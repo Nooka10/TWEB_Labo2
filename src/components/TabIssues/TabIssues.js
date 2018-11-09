@@ -252,14 +252,13 @@ class TabIssues extends React.Component {
                 ))}
               {emptyRows > 0 && (
                 <TableRow style = {{ height: 48 * emptyRows }}>
-                  <TableCell colSpan = {3} />
+                  <TableCell />
                 </TableRow>
               )}
             </TableBody>
             <TableFooter>
               <TableRow>
                 <TablePagination
-                  colSpan = {3}
                   count = {rows.length}
                   rowsPerPage = {rowsPerPage}
                   page = {page}
