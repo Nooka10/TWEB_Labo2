@@ -37,18 +37,18 @@ function IssueIcon(props) {
   // affiche une icone verte avec un point d'exclamation si l'issue est open.
   if (state === 'open') {
     return (
-      <Avatar aria-label = "Recipe" className = {classes.avatar} >
-        <Icon aria-label = "Recipe" className = {classes.opened} >error_outline</Icon >
-      </Avatar >
+      <Avatar aria-label = "Recipe" className = {classes.avatar}>
+        <Icon aria-label = "Recipe" className = {classes.opened}>error_outline</Icon>
+      </Avatar>
     );
   }
 
   // affiche une icone rouge avec un vu si l'issue est closed.
   if (state === 'closed') {
     return (
-      <Avatar aria-label = "Recipe" className = {classes.avatar} >
-        <Icon aria-label = "Recipe" className = {classes.closed} >check_circle_outline</Icon >
-      </Avatar >);
+      <Avatar aria-label = "Recipe" className = {classes.avatar}>
+        <Icon aria-label = "Recipe" className = {classes.closed}>check_circle_outline</Icon>
+      </Avatar>);
   }
 
   // lève une erreur si le state est pas égal à 'open' ou à 'closed'.

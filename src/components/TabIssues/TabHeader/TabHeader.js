@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell/TableCell';
 import Tooltip from '@material-ui/core/Tooltip/Tooltip';
 import TableSortLabel from '@material-ui/core/TableSortLabel/TableSortLabel';
 
-const styles = theme => ({
+const styles = {
   headerRow  : {
     display     : 'flex',
     alignItems  : 'center',
@@ -14,12 +14,12 @@ const styles = theme => ({
     borderBottom: '1px solid rgba(224, 224, 224, 1)'
   },
   headerCells: {
-    margin    : 0,
-    border    : 0,
-    width     : 100,
-    fontSize  : 16
+    margin  : 0,
+    border  : 0,
+    width   : 100,
+    fontSize: 16
   }
-});
+};
 
 /**
  * Composant gérant l'entête du tableau permettant de trier les issues par état (open / closed) et par date (asc / desc).
@@ -45,7 +45,7 @@ class TabHeader extends React.Component {
     ];
 
     return (
-      <TableRow className = {classes.headerRow} >
+      <TableRow className = {classes.headerRow}>
         {rows.map(row => (
           <TableCell
             key = {row.id}
@@ -65,11 +65,11 @@ class TabHeader extends React.Component {
                 onClick = {this.createSortHandler(row.id)}
               >
                 {row.label}
-              </TableSortLabel >
-            </Tooltip >
-          </TableCell >
+              </TableSortLabel>
+            </Tooltip>
+          </TableCell>
         ), this)}
-      </TableRow >
+      </TableRow>
     );
   }
 }

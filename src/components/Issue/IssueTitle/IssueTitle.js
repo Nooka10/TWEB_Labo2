@@ -6,12 +6,12 @@ import Moment from 'react-moment';
 
 const styles = {
   header: {
-    flexGrow: 2,
+    flexGrow      : 2,
     width         : '85%',
     justifyContent: 'center',
     alignItems    : 'center',
-    fontSize : 14,
-    textAlign: 'left'
+    fontSize      : 14,
+    textAlign     : 'left'
   }
 };
 
@@ -33,15 +33,15 @@ function IssueTitle(props) {
 
   // Détermine le contenu du sous-titre de l'issue.
   const subTitle = (
-    <Fragment >
+    <Fragment>
       #
       {id}
       {(state === 'opened' ? ' Opened ' : ' Closed ')}
       {/* Calcule le temps écoulé depuis la création ou la clôture de l'issue. */}
-      <Moment fromNow >{issueTime}</Moment >
+      <Moment fromNow>{issueTime}</Moment>
       {' by '}
       {user}
-    </Fragment >
+    </Fragment>
   );
 
   return (

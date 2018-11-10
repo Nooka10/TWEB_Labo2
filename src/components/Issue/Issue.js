@@ -36,13 +36,13 @@ function Issue(props) {
     id, title, state, user, issueTime
   };
   return (
-    <Card >
-      <CardActionArea className = {classes.cardActionArea} >
+    <Card>
+      <CardActionArea className = {classes.cardActionArea} href = {`/${id}`} target = "_blank">
         <IssueIcon state = {state} />
         <IssueTitle data = {titleData} />
         <IssueComments nbComments = {nbComments} />
-      </CardActionArea >
-    </Card >
+      </CardActionArea>
+    </Card>
   );
 }
 

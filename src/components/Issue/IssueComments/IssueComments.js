@@ -39,14 +39,14 @@ function IssueComments(props) {
   // affiche une icone de commentaire et le nombre de commentaires s'il y en a au moins 1.
   if (nbComments > 0) {
     return (
-      <div className = {classes.cell} >
-        <Icon aria-label = "Recipe" className = {classes.icon} >
+      <div className = {classes.cell}>
+        <Icon aria-label = "Recipe" className = {classes.icon}>
           comment
-        </Icon >
-        <div className = {classes.nbComments} >
+        </Icon>
+        <div className = {classes.nbComments}>
           {nbComments}
-        </div >
-      </div >);
+        </div>
+      </div>);
   }
   // n'affiche rien sinon.
   return null;
