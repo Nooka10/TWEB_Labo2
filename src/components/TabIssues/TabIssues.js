@@ -104,84 +104,84 @@ class TabIssues extends React.Component {
     this.state = {
       rows        : [
         {
-          id          : 0,
-          title       : 'Issue Title',
-          state       : 'open',
-          nbComments  : 5,
-          user        : 'Ovolo',
-          issueTime: '20181031'
+          id        : 0,
+          title     : 'Issue Title',
+          state     : 'open',
+          nbComments: 5,
+          user      : 'Ovolo',
+          issueTime : '20181031'
         },
         {
-          id          : 1,
-          title       : 'Koch Becker',
-          state       : 'closed',
-          nbComments  : 1,
-          user        : 'Eventage',
-          issueTime: '20181030'
+          id        : 1,
+          title     : 'Koch Becker',
+          state     : 'closed',
+          nbComments: 1,
+          user      : 'Eventage',
+          issueTime : '20181030'
         },
         {
-          id          : 2,
-          title       : 'Lowery Hopkins',
-          state       : 'closed',
-          nbComments  : 0,
-          user        : 'Comtext',
-          issueTime: '20181102'
+          id        : 2,
+          title     : 'Lowery Hopkins',
+          state     : 'closed',
+          nbComments: 0,
+          user      : 'Comtext',
+          issueTime : '20181102'
         },
         {
-          id          : 3,
-          title       : 'Walters Mays',
-          state       : 'open',
-          nbComments  : 0,
-          user        : 'Corporana',
-          issueTime: '20171112'
+          id        : 3,
+          title     : 'Walters Mays',
+          state     : 'open',
+          nbComments: 0,
+          user      : 'Corporana',
+          issueTime : '20171112'
         },
         {
-          id          : 4,
-          title       : 'Shaw Lowe',
-          state       : 'closed',
-          nbComments  : 3,
-          user        : 'Isologica',
-          issueTime: '20180402'
+          id        : 4,
+          title     : 'Shaw Lowe',
+          state     : 'closed',
+          nbComments: 3,
+          user      : 'Isologica',
+          issueTime : '20180402'
         },
         {
-          id          : 5,
-          title       : 'Mayer Leonard',
-          state       : 'open',
-          nbComments  : 5,
-          user        : 'Ovolo',
-          issueTime: '20181102'
+          id        : 5,
+          title     : 'Mayer Leonard',
+          state     : 'open',
+          nbComments: 5,
+          user      : 'Ovolo',
+          issueTime : '20181102'
         },
         {
-          id          : 6,
-          title       : 'Koch Becker',
-          state       : 'open',
-          nbComments  : 0,
-          user        : 'Eventage',
-          issueTime: '20180802'
+          id        : 6,
+          title     : 'Koch Becker',
+          state     : 'open',
+          nbComments: 0,
+          user      : 'Eventage',
+          issueTime : '20180802'
         },
         {
-          id          : 7,
-          title       : 'Lowery Hopkins',
-          state       : 'closed',
-          nbComments  : 5,
-          user        : 'Comtext',
-          issueTime: '20180920'
+          id        : 7,
+          title     : 'Lowery Hopkins',
+          state     : 'closed',
+          nbComments: 5,
+          user      : 'Comtext',
+          issueTime : '20180920'
         },
         {
-          id          : 8,
-          title       : 'Walters Mays',
-          state       : 'closed',
-          nbComments  : 4,
-          user        : 'Corporana',
-          issueTime: '20180812'
+          id        : 8,
+          title     : 'Walters Mays',
+          state     : 'closed',
+          nbComments: 4,
+          user      : 'Corporana',
+          issueTime : '20180812'
         },
         {
-          id          : 9,
-          title       : 'Shaw Lowe',
-          state       : 'closed',
-          nbComments  : 9,
-          user        : 'Isologica',
-          issueTime: '20181109'
+          id        : 9,
+          title     : 'Shaw Lowe',
+          state     : 'closed',
+          nbComments: 9,
+          user      : 'Isologica',
+          issueTime : '20181109'
         }
       ],
       order       : 'desc',
@@ -235,24 +235,25 @@ class TabIssues extends React.Component {
     return (
       <Paper className = {styles.root}>
         <div className = {styles.tableWrapper}>
-          <Table className = {styles.table}>
-            <TabHeader
-              order = {order}
-              valueOrderBy = {valueOrderBy}
-              onRequestSort = {this.handleRequestSort}
-            />
-
+          <Table>
             <TableBody>
+              <TabHeader
+                order = {order}
+                valueOrderBy = {valueOrderBy}
+                onRequestSort = {this.handleRequestSort}
+              />
               {stableSort(rows, sortFunction(order, valueOrderBy, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(row => (
                   <TableRow key = {row.id}>
-                    <Issues data = {row} />
+                    <TableCell colSpan = {2}>
+                      <Issues data = {row} />
+                    </TableCell>
                   </TableRow>
                 ))}
               {emptyRows > 0 && (
                 <TableRow style = {{ height: 48 * emptyRows }}>
-                  <TableCell />
+                  <TableCell colSpan = {2} />
                 </TableRow>
               )}
             </TableBody>

@@ -3,31 +3,14 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import Table from '@material-ui/core/Table/Table';
-import TableCell from '@material-ui/core/TableCell/TableCell';
-import TableRow from '@material-ui/core/TableRow/TableRow';
-import TableBody from '@material-ui/core/TableBody/TableBody';
 import IssueComments from './IssueComments/IssueComments';
-import IssueImg from './IssueIcon/IssueIcon';
+import IssueIcon from './IssueIcon/IssueIcon';
 import IssueTitle from './IssueTitle/IssueTitle';
 
 const styles = {
-  table      : {
-    width: '100%'
-  },
-  imgCell    : {
-    width  : '5%',
-    heigth : '100%',
-    padding: '2%'
-  },
-  titleCell  : {
-    width : '90%',
-    heigth: '100%'
-  },
-  commentCell: {
-    width  : '5%',
-    heigth : '100%',
-    padding: '2%'
+  cardActionArea: {
+    width  : '100%',
+    display: 'flex'
   }
 };
 
@@ -53,25 +36,13 @@ function Issue(props) {
     id, title, state, user, issueTime
   };
   return (
-    <Card className = {classes.table}>
-      <CardActionArea>
-        <Table className = {classes.table}>
-          <TableBody>
-            <TableRow>
-              <TableCell className = {classes.imgCell}>
-                <IssueImg state = {state} />
-              </TableCell>
-              <TableCell className = {classes.titleCell}>
-                <IssueTitle data = {titleData} />
-              </TableCell>
-              <TableCell className = {classes.commentCell}>
-                <IssueComments nbComments = {nbComments} />
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </CardActionArea>
-    </Card>
+    <Card >
+      <CardActionArea className = {classes.cardActionArea} >
+        <IssueIcon state = {state} />
+        <IssueTitle data = {titleData} />
+        <IssueComments nbComments = {nbComments} />
+      </CardActionArea >
+    </Card >
   );
 }
 

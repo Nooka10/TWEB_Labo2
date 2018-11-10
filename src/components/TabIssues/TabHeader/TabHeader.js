@@ -2,17 +2,22 @@ import React from 'react';
 import TableRow from '@material-ui/core/TableRow/TableRow';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import TableHead from '@material-ui/core/TableHead/TableHead';
 import TableCell from '@material-ui/core/TableCell/TableCell';
 import Tooltip from '@material-ui/core/Tooltip/Tooltip';
 import TableSortLabel from '@material-ui/core/TableSortLabel/TableSortLabel';
 
 const styles = theme => ({
-  card      : {
-    minWidth: 275
+  headerRow  : {
+    display     : 'flex',
+    alignItems  : 'center',
+    paddingLeft : '5%',
+    borderBottom: '1px solid rgba(224, 224, 224, 1)'
   },
-  headerCell: {
-    border: 0
+  headerCells: {
+    margin    : 0,
+    border    : 0,
+    width     : 100,
+    fontSize  : 16
   }
 });
 
@@ -40,35 +45,31 @@ class TabHeader extends React.Component {
     ];
 
     return (
-      <TableHead>
-        <TableRow>
-          <TableCell className = {classes.headerCell}>
-            {rows.map(row => (
-              <TableCell
-                key = {row.id}
-                numeric = {row.numeric}
-                padding = {row.disablePadding ? 'none' : 'default'}
-                sortDirection = {valueOrderBy === row.id ? order : false}
-                className = {classes.headerCell}
+      <TableRow className = {classes.headerRow} >
+        {rows.map(row => (
+          <TableCell
+            key = {row.id}
+            numeric = {row.numeric}
+            padding = {row.disablePadding ? 'none' : 'default'}
+            sortDirection = {valueOrderBy === row.id ? order : false}
+            className = {classes.headerCells}
+          >
+            <Tooltip
+              title = "Sort"
+              placement = {row.numeric ? 'bottom-end' : 'bottom-start'}
+              enterDelay = {300}
+            >
+              <TableSortLabel
+                active = {valueOrderBy === row.id}
+                direction = {order}
+                onClick = {this.createSortHandler(row.id)}
               >
-                <Tooltip
-                  title = "Sort"
-                  placement = {row.numeric ? 'bottom-end' : 'bottom-start'}
-                  enterDelay = {300}
-                >
-                  <TableSortLabel
-                    active = {valueOrderBy === row.id}
-                    direction = {order}
-                    onClick = {this.createSortHandler(row.id)}
-                  >
-                    {row.label}
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-            ), this)}
-          </TableCell>
-        </TableRow>
-      </TableHead>
+                {row.label}
+              </TableSortLabel >
+            </Tooltip >
+          </TableCell >
+        ), this)}
+      </TableRow >
     );
   }
 }
