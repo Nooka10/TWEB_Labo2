@@ -17,7 +17,7 @@ const styles = {
 
 /**
  * Composant gérant le titre et le sous-titre de l'issue.
- * @param props.id, le numéro d'identifiant de l'issue.
+ * @param props.issueNumber, le numéro d'identifiant de l'issue.
  * @param props.title, le titre de l'issue.
  * @param props.state, l'état de l'issue (open / closed).
  * @param props.user, l'utilisateur ayant créé l'issue.

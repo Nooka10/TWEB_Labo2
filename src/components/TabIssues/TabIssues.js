@@ -10,6 +10,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TablePaginationWrapper from './TabPagination/TabPagination';
 import TabHeader from './TabHeader/TabHeader';
 import Issues from '../Issue/Issue';
+import IssuesDatas from '../../data/issues';
 
 const styles = theme => ({
   root        : {
@@ -34,7 +35,7 @@ const styles = theme => ({
  */
 function sortByissueTime(issue1, issue2) {
   if (issue1.state === issue2.state) {
-    const orderBy = 'issueTime';
+    const orderBy = 'created_at';
     if (issue2[orderBy] < issue1[orderBy]) {
       return -1;
     }
@@ -102,88 +103,7 @@ class TabIssues extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows        : [
-        {
-          id        : 0,
-          title     : 'Issue Title',
-          state     : 'open',
-          nbComments: 5,
-          user      : 'Ovolo',
-          issueTime : '20181031'
-        },
-        {
-          id        : 1,
-          title     : 'Koch Becker',
-          state     : 'closed',
-          nbComments: 1,
-          user      : 'Eventage',
-          issueTime : '20181030'
-        },
-        {
-          id        : 2,
-          title     : 'Lowery Hopkins',
-          state     : 'closed',
-          nbComments: 0,
-          user      : 'Comtext',
-          issueTime : '20181102'
-        },
-        {
-          id        : 3,
-          title     : 'Walters Mays',
-          state     : 'open',
-          nbComments: 0,
-          user      : 'Corporana',
-          issueTime : '20171112'
-        },
-        {
-          id        : 4,
-          title     : 'Shaw Lowe',
-          state     : 'closed',
-          nbComments: 3,
-          user      : 'Isologica',
-          issueTime : '20180402'
-        },
-        {
-          id        : 5,
-          title     : 'Mayer Leonard',
-          state     : 'open',
-          nbComments: 5,
-          user      : 'Ovolo',
-          issueTime : '20181102'
-        },
-        {
-          id        : 6,
-          title     : 'Koch Becker',
-          state     : 'open',
-          nbComments: 0,
-          user      : 'Eventage',
-          issueTime : '20180802'
-        },
-        {
-          id        : 7,
-          title     : 'Lowery Hopkins',
-          state     : 'closed',
-          nbComments: 5,
-          user      : 'Comtext',
-          issueTime : '20180920'
-        },
-        {
-          id        : 8,
-          title     : 'Walters Mays',
-          state     : 'closed',
-          nbComments: 4,
-          user      : 'Corporana',
-          issueTime : '20180812'
-        },
-        {
-          id        : 9,
-          title     : 'Shaw Lowe',
-          state     : 'closed',
-          nbComments: 9,
-          user      : 'Isologica',
-          issueTime : '20181109'
-        }
-      ],
+      rows        : IssuesDatas.issues,
       order       : 'desc',
       valueOrderBy: 'open',
       orderBy     : 'state',
@@ -245,7 +165,7 @@ class TabIssues extends React.Component {
               {stableSort(rows, sortFunction(order, valueOrderBy, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(row => (
-                  <TableRow key = {row.id}>
+                  <TableRow key = {row.issueNumber}>
                     <TableCell colSpan = {2}>
                       <Issues data = {row} />
                     </TableCell>

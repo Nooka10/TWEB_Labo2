@@ -16,7 +16,7 @@ const styles = {
 
 /**
  * Composant gérant l'afficahge d'une issue (correspondant à une ligne du tableau TabIssue).
- * @param props.id, le numéro d'identifiant de l'issue.
+ * @param props.issueNumber, le numéro d'identifiant de l'issue.
  * @param props.title, le titre de l'issue.
  * @param props.state, l'état de l'issue (open / closed).
  * @param props.nbComments, le nombre de commentaires de l'issue.
@@ -28,9 +28,11 @@ function Issue(props) {
   const {
     classes,
     data: {
-      id, title, state, nbComments, user, issueTime
+      number: id, title, state, comments: nbComments, user: userObj, created_at: issueTime
     }
   } = props;
+
+  const { login: user } = userObj;
 
   const titleData = {
     id, title, state, user, issueTime
@@ -50,12 +52,12 @@ Issue.propTypes = {
   classes: PropTypes.shape().isRequired,
   data   : PropTypes.shape(
     {
-      id        : PropTypes.number.isRequired,
+      number    : PropTypes.number.isRequired,
       title     : PropTypes.string.isRequired,
       state     : PropTypes.string.isRequired,
-      nbComments: PropTypes.number.isRequired,
-      user      : PropTypes.string.isRequired,
-      issueTime : PropTypes.string.isRequired
+      comments  : PropTypes.number.isRequired,
+      user      : PropTypes.shape().isRequired,
+      created_at: PropTypes.string.isRequired
     }
   ).isRequired
 };

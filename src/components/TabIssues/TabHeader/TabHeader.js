@@ -37,10 +37,10 @@ class TabHeader extends React.Component {
 
     const rows = [
       {
-        id: 'open', numeric: false, disablePadding: false, label: 'Open'
+        issueNumber: 'open', numeric: false, disablePadding: false, label: 'Open'
       },
       {
-        id: 'closed', numeric: false, disablePadding: false, label: 'Closed'
+        issueNumber: 'closed', numeric: false, disablePadding: false, label: 'Closed'
       }
     ];
 
@@ -48,10 +48,10 @@ class TabHeader extends React.Component {
       <TableRow className = {classes.headerRow}>
         {rows.map(row => (
           <TableCell
-            key = {row.id}
+            key = {row.issueNumber}
             numeric = {row.numeric}
             padding = {row.disablePadding ? 'none' : 'default'}
-            sortDirection = {valueOrderBy === row.id ? order : false}
+            sortDirection = {valueOrderBy === row.issueNumber ? order : false}
             className = {classes.headerCells}
           >
             <Tooltip
@@ -60,9 +60,9 @@ class TabHeader extends React.Component {
               enterDelay = {300}
             >
               <TableSortLabel
-                active = {valueOrderBy === row.id}
+                active = {valueOrderBy === row.issueNumber}
                 direction = {order}
-                onClick = {this.createSortHandler(row.id)}
+                onClick = {this.createSortHandler(row.issueNumber)}
               >
                 {row.label}
               </TableSortLabel>

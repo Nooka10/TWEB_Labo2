@@ -25,21 +25,21 @@ storiesOf('IssueTitle', module)
   .add('Issue Title opened on 31.10.2018',
     () => (
       <IssueTitle data = {{
-        id: '1234', title: 'Ya rien qui maaaarche!', state: 'open', user: 'Nooka10', issueTime: '20181031'
+        issueNumber: '1234', title: 'Ya rien qui maaaarche!', state: 'open', user: 'Nooka10', issueTime: '20181031'
       }}
       />
     ))
   .add('Issue Title closed on 09.11.2018',
     () => (
       <IssueTitle data = {{
-        id: '1234', title: 'Ya rien qui maaaarche!', state: 'closed', user: 'Nooka10', issueTime: '20181109'
+        issueNumber: '1234', title: 'Ya rien qui maaaarche!', state: 'closed', user: 'Nooka10', issueTime: '20181109'
       }}
       />
     ))
   .add('Issue Title opened just now',
     () => (
       <IssueTitle data = {{
-        id: '1234', title: 'Ya rien qui maaaarche!', state: 'open', user: 'Nooka10', issueTime: dateNow
+        issueNumber: '1234', title: 'Ya rien qui maaaarche!', state: 'open', user: 'Nooka10', issueTime: dateNow
       }}
       />
     ));
@@ -48,34 +48,34 @@ storiesOf('Issue', module)
   .add('Issue opened on 31.10.2018 without any comment',
     () => (
       <Issue data = {{
-        id        : '1234',
-        title     : 'Ya rien qui maaaarche!',
-        state     : 'open',
-        nbComments: '0',
-        user      : 'Nooka10',
-        issueTime : '20181031'
+        issueNumber: '1234',
+        title      : 'Ya rien qui maaaarche!',
+        state      : 'open',
+        nbComments : '0',
+        user       : 'Nooka10',
+        issueTime  : '20181031'
       }}
       />
     )).add('Issue closed on 09.11.2018 with 3 comments',
     () => (
       <Issue data = {{
-        id        : '1234',
-        title     : 'Ya rien qui maaaarche!',
-        state     : 'closed',
-        nbComments: '3',
-        user      : 'Nooka10',
-        issueTime : '20181109'
+        issueNumber: '1234',
+        title      : 'Ya rien qui maaaarche!',
+        state      : 'closed',
+        nbComments : '3',
+        user       : 'Nooka10',
+        issueTime  : '20181109'
       }}
       />
     )).add('Issue opened on 31.10.2018 with 10 comments',
     () => (
       <Issue data = {{
-        id        : '1234',
-        title     : 'Ya rien qui maaaarche!',
-        state     : 'open',
-        nbComments: '10',
-        user      : 'Nooka10',
-        issueTime : dateNow
+        issueNumber: '1234',
+        title      : 'Ya rien qui maaaarche!',
+        state      : 'open',
+        nbComments : '10',
+        user       : 'Nooka10',
+        issueTime  : dateNow
       }}
       />
     ));
