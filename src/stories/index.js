@@ -51,7 +51,7 @@ storiesOf('Issue', module)
         issueNumber: '1234',
         title      : 'Ya rien qui maaaarche!',
         state      : 'open',
-        nbComments : '0',
+        comments : '0',
         user       : 'Nooka10',
         issueTime  : '20181031'
       }}
@@ -62,7 +62,7 @@ storiesOf('Issue', module)
         issueNumber: '1234',
         title      : 'Ya rien qui maaaarche!',
         state      : 'closed',
-        nbComments : '3',
+        comments : '3',
         user       : 'Nooka10',
         issueTime  : '20181109'
       }}
@@ -73,7 +73,7 @@ storiesOf('Issue', module)
         issueNumber: '1234',
         title      : 'Ya rien qui maaaarche!',
         state      : 'open',
-        nbComments : '10',
+        comments : '10',
         user       : 'Nooka10',
         issueTime  : dateNow
       }}

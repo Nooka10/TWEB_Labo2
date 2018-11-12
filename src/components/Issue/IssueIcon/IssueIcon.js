@@ -4,7 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 import Avatar from '@material-ui/core/Avatar/Avatar';
-import Icon from '@material-ui/core/Icon';
+import ErrrorOutline from '@material-ui/icons/ErrorOutline';
+import CheckCircleOutline from '@material-ui/icons/CheckCircleOutline';
 
 const styles = {
   avatar: {
@@ -12,7 +13,7 @@ const styles = {
     width          : '5%',
     minWidth       : 60,
     backgroundColor: 'white',
-    padding         : '2%'
+    padding        : '2%'
   },
   opened: {
     color   : green[500],
@@ -38,7 +39,7 @@ function IssueIcon(props) {
   if (state === 'open') {
     return (
       <Avatar aria-label = "Recipe" className = {classes.avatar}>
-        <Icon aria-label = "Recipe" className = {classes.opened}>error_outline</Icon>
+        <ErrrorOutline className = {classes.opened} />
       </Avatar>
     );
   }
@@ -47,7 +48,7 @@ function IssueIcon(props) {
   if (state === 'closed') {
     return (
       <Avatar aria-label = "Recipe" className = {classes.avatar}>
-        <Icon aria-label = "Recipe" className = {classes.closed}>check_circle_outline</Icon>
+        <CheckCircleOutline className = {classes.closed} />
       </Avatar>);
   }
 

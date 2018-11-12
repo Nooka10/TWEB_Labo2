@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Icon from '@material-ui/core/Icon';
+import Comment from '@material-ui/icons/Comment';
 
 const styles = theme => ({
   cell      : {
@@ -40,9 +40,7 @@ function IssueComments(props) {
   if (nbComments > 0) {
     return (
       <div className = {classes.cell}>
-        <Icon aria-label = "Recipe" className = {classes.icon}>
-          comment
-        </Icon>
+        <Comment className = {classes.icon} />
         <div className = {classes.nbComments}>
           {nbComments}
         </div>
