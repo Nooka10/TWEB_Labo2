@@ -5,6 +5,7 @@ module.exports = {
     'react/jsx-filename-extension': [1, { 'extensions': ['.js', '.jsx'] }],
     'react/jsx-equals-spacing'    : 'off',
     'comma-dangle'                : 'off',
-    'key-spacing'                 : 'off'
+    'key-spacing'                 : 'off',
+    'max-len'                     : 'off'
   }
 };

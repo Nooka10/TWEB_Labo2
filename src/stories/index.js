@@ -2,13 +2,11 @@
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
-import TablePagination from '@material-ui/core/TablePagination/TablePagination';
 import IssueIcon from '../components/Issue/IssueIcon/IssueIcon';
 import IssueComments from '../components/Issue/IssueComments/IssueComments';
 import IssueTitle from '../components/Issue/IssueTitle/IssueTitle';
 import Issue from '../components/Issue/Issue';
-import TabHeader from '../components/TabIssues/TabHeader/TabHeader';
-import TablePaginationWrapper from '../components/TabIssues/TabPagination/TabPagination';
+import TabIssues from '../components/TabIssues/TabIssues';
 
 storiesOf('IssueComments', module)
   .add('Issue with 0 comments (n\'affiche rien)', () => <IssueComments nbComments = "0" />)
@@ -51,7 +49,7 @@ storiesOf('Issue', module)
         issueNumber: '1234',
         title      : 'Ya rien qui maaaarche!',
         state      : 'open',
-        comments : '0',
+        comments   : '0',
         user       : 'Nooka10',
         issueTime  : '20181031'
       }}
@@ -62,7 +60,7 @@ storiesOf('Issue', module)
         issueNumber: '1234',
         title      : 'Ya rien qui maaaarche!',
         state      : 'closed',
-        comments : '3',
+        comments   : '3',
         user       : 'Nooka10',
         issueTime  : '20181109'
       }}
@@ -73,31 +71,13 @@ storiesOf('Issue', module)
         issueNumber: '1234',
         title      : 'Ya rien qui maaaarche!',
         state      : 'open',
-        comments : '10',
+        comments   : '10',
         user       : 'Nooka10',
         issueTime  : dateNow
       }}
       />
     ));
 
-storiesOf('TabHeader', module)
-  .add('TabHeader', () => (
-    <TabHeader
-      order = "asc"
-      valueOrderBy = "state"
-      onRequestSort = {() => 0}
-    />));
-
-let rowsPerPage = 5;
-let noPage = 0;
-storiesOf('TabPagination', module)
-  .add('TabPagination', () => (
-    <TablePagination
-      colSpan = {6}
-      count = {50}
-      rowsPerPage = {rowsPerPage}
-      page = {noPage}
-      onChangePage = {(event, p) => { noPage = p; }}
-      onChangeRowsPerPage = {(event) => { rowsPerPage = event.target.value; }}
-      ActionsComponent = {TablePaginationWrapper}
-    />));
+storiesOf('TabIssues', module).add('TabIssues', () => (
+  <TabIssues />
+));
