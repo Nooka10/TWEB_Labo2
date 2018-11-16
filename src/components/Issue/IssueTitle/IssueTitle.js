@@ -36,7 +36,7 @@ function IssueTitle(props) {
     <Fragment>
       #
       {id}
-      {(state === 'opened' ? ' Opened ' : ' Closed ')}
+      {(state === 'OPEN' ? ' Opened ' : ' Closed ')}
       {/* Calcule le temps écoulé depuis la création ou la clôture de l'issue. */}
       <Moment fromNow>{issueTime}</Moment>
       {' by '}

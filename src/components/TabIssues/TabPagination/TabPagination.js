@@ -55,6 +55,7 @@ function TablePaginationActions(props) {
     onChangePage(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
   }
 
+  // FIXME: comment faire de la pagination avec graphQL?
   return (
     <div className = {classes.root}>
       <IconButton

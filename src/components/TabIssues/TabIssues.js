@@ -7,25 +7,40 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
+import PropTypes from 'prop-types';
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
 import TablePaginationWrapper from './TabPagination/TabPagination';
 import TabHeader from './TabHeader/TabHeader';
 import Issues from '../Issue/Issue';
-import IssuesDatas from '../../data/issues';
 
 const styles = theme => ({
-  root        : {
-    width      : '95%',
-    marginTop  : theme.spacing.unit * 3,
-    marginLeft : '2.5%',
-    marginRight: '2.5%'
-  },
-  table       : {
-    minWidth: 500
-  },
-  tableWrapper: {
-    overflowX: 'auto'
+  root: {
+    width    : '100%',
+    marginTop: theme.spacing.unit * 3
   }
 });
+
+const GET_ISSUES = gql`
+    query Issues($owner: String!, $repo: String!, $state: IssueState!, $nbIssues: Int!, $order: OrderDirection!) {
+        repository(owner: $owner, name: $repo) {
+            issues(first: $nbIssues, states: [$state], orderBy: {field: CREATED_AT, direction: $order}) {
+                edges {
+                    cursor
+                    node {
+                        title
+                        number
+                        state
+                        createdAt
+                        comments{totalCount}
+                        author {login}
+                    }
+                }
+                totalCount
+            }
+        }
+    }
+`;
 
 /**
  * Trie les 2 issues reçus en paramètre par date de création.
@@ -63,7 +78,7 @@ function sortBy(issue1, issue2, order, orderBy) {
   }
 
   // a et b ont la même valeur pour le champ 'orderBy' ---> on les trie par date de création
-  return order === 'desc' ? sortByissueTime(issue1, issue2) : -sortByissueTime(issue1, issue2);
+  return order === 'DESC' ? sortByissueTime(issue1, issue2) : -sortByissueTime(issue1, issue2);
 }
 
 /**
@@ -74,7 +89,7 @@ function sortBy(issue1, issue2, order, orderBy) {
  * @returns {function(*=, *=): number}
  */
 function sortFunction(order, orderValue, orderBy) {
-  return orderValue === 'open' ? (a, b) => sortBy(a, b, order, orderBy) : (a, b) => -sortBy(a, b, order, orderBy);
+  return orderValue === 'OPEN' ? (a, b) => sortBy(a, b, order, orderBy) : (a, b) => -sortBy(a, b, order, orderBy);
 }
 
 /**
@@ -103,12 +118,11 @@ class TabIssues extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows        : IssuesDatas.issues,
-      order       : 'desc',
-      valueOrderBy: 'open',
-      orderBy     : 'state',
-      page        : 0,
-      rowsPerPage : 5
+      order      : 'DESC',
+      issueState : props.mainState.issuesState,
+      orderBy    : 'state',
+      page       : 0,
+      rowsPerPage: 5
     };
   }
 
@@ -118,15 +132,15 @@ class TabIssues extends React.Component {
    * @param property
    */
   handleRequestSort = (event, property) => {
-    const valueOrderBy = property;
-    let order = 'desc';
-    const { valueOrderBy: stateOrderBy, order: stateOrder } = this.state;
+    const issueState = property;
+    let order = 'DESC';
+    const { issueState: stateOrderBy, order: stateOrder } = this.state;
 
-    if (stateOrderBy === property && stateOrder === 'desc') {
-      order = 'asc';
+    if (stateOrderBy === property && stateOrder === 'DESC') {
+      order = 'ASC';
     }
 
-    this.setState({ order, valueOrderBy });
+    this.setState({ order, issueState });
   };
 
   /**
@@ -147,53 +161,115 @@ class TabIssues extends React.Component {
   };
 
   render() {
+    const { classes, mainState: { username, repo } } = this.props;
     const {
-      rows, order, orderBy, valueOrderBy, rowsPerPage, page
+      order, orderBy, issueState, rowsPerPage, page
     } = this.state;
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+    // FIXME: comment reset une erreur graphQL? Là, si un répertoire n'existe pas, on ne peut plus en rechercher ensuite...
     return (
-      <Paper className = {styles.root}>
-        <div className = {styles.tableWrapper}>
-          <Table>
-            <TableBody>
-              <TabHeader
-                order = {order}
-                valueOrderBy = {valueOrderBy}
-                onRequestSort = {this.handleRequestSort}
-              />
-              {stableSort(rows, sortFunction(order, valueOrderBy, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(row => (
-                  <TableRow key = {row.issueNumber}>
-                    <TableCell colSpan = {2}>
-                      <Issues data = {row} />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              {emptyRows > 0 && (
-                <TableRow style = {{ height: 48 * emptyRows }}>
-                  <TableCell colSpan = {2} />
-                </TableRow>
-              )}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  count = {rows.length}
-                  rowsPerPage = {rowsPerPage}
-                  page = {page}
-                  onChangePage = {this.handleChangePage}
-                  onChangeRowsPerPage = {this.handleChangeRowsPerPage}
-                  ActionsComponent = {TablePaginationWrapper}
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </div>
-      </Paper>
+      <Query
+        query = {GET_ISSUES}
+        variables = {{
+          owner: username, repo, state: issueState, nbIssues: rowsPerPage, order
+        }}
+      >
+        {({ loading, error, data }) => {
+          if (loading) {
+            return <div >Loading...</div >;
+          }
+          if (error) {
+            return (
+              <Paper className = {classes.root} >
+                <div >
+                  <Table >
+                    <TableBody >
+                      <TabHeader
+                        order = {order}
+                        valueOrderBy = {issueState}
+                        issueState = {issueState}
+                        onRequestSort = {this.handleRequestSort}
+                      />
+                    </TableBody >
+                    <TableFooter >
+                      <TableRow >
+                        <TablePagination
+                          count = {0}
+                          rowsPerPage = {rowsPerPage}
+                          page = {page}
+                          onChangePage = {this.handleChangePage}
+                          onChangeRowsPerPage = {this.handleChangeRowsPerPage}
+                          ActionsComponent = {TablePaginationWrapper}
+                        />
+                      </TableRow >
+                    </TableFooter >
+                  </Table >
+                </div >
+              </Paper >
+            );
+          }
+
+          const { issues } = data.repository;
+          const { edges } = data.repository.issues;
+          const emptyRows = rowsPerPage - Math.min(rowsPerPage, edges.length - page * rowsPerPage);
+
+          return (
+            <Paper className = {classes.root} >
+              <div >
+                <Table >
+                  <TableBody >
+                    <TabHeader
+                      order = {order}
+                      valueOrderBy = {issueState}
+                      issueState = {issueState}
+                      onRequestSort = {this.handleRequestSort}
+                    />
+                    {stableSort(edges, sortFunction(order, issueState, orderBy))
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map(row => (
+                        <TableRow key = {row.node.number} >
+                          <TableCell colSpan = {2} >
+                            <Issues data = {row.node} repo = {repo} repoOwner = {username} />
+                          </TableCell >
+                        </TableRow >
+                      ))}
+                    {emptyRows > 0 && (
+                      <TableRow style = {{ height: 48 * emptyRows }} >
+                        <TableCell colSpan = {2} />
+                      </TableRow >
+                    )}
+                  </TableBody >
+                  <TableFooter >
+                    <TableRow >
+                      <TablePagination
+                        count = {issues.totalCount}
+                        rowsPerPage = {rowsPerPage}
+                        page = {page}
+                        onChangePage = {this.handleChangePage}
+                        onChangeRowsPerPage = {this.handleChangeRowsPerPage}
+                        ActionsComponent = {TablePaginationWrapper}
+                      />
+                    </TableRow >
+                  </TableFooter >
+                </Table >
+              </div >
+            </Paper >
+          );
+        }}
+      </Query >
     );
   }
 }
+
+TabIssues.propTypes = {
+  classes  : PropTypes.shape().isRequired,
+  mainState: PropTypes.shape(
+    {
+      username   : PropTypes.string.isRequired,
+      repo       : PropTypes.string.isRequired,
+      issuesState: PropTypes.string.isRequired
+    }
+  ).isRequired
+};
 
 export default withStyles(styles)(TabIssues);

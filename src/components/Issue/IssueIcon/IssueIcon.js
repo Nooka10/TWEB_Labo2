@@ -36,7 +36,7 @@ function IssueIcon(props) {
   const { classes, state } = props;
 
   // affiche une icone verte avec un point d'exclamation si l'issue est open.
-  if (state === 'open') {
+  if (state === 'OPEN') {
     return (
       <Avatar aria-label = "Recipe" className = {classes.avatar}>
         <ErrrorOutline className = {classes.opened} />
@@ -45,7 +45,7 @@ function IssueIcon(props) {
   }
 
   // affiche une icone rouge avec un vu si l'issue est closed.
-  if (state === 'closed') {
+  if (state === 'CLOSED') {
     return (
       <Avatar aria-label = "Recipe" className = {classes.avatar}>
         <CheckCircleOutline className = {classes.closed} />
@@ -53,7 +53,7 @@ function IssueIcon(props) {
   }
 
   // lève une erreur si le state est pas égal à 'open' ou à 'closed'.
-  throw new Error(`Invalid state! Must be equal to 'open' or 'closed'. Was ${state}`);
+  throw new Error(`Invalid state! Must be equal to 'OPEN' or 'CLOSED'. Was ${state}`);
 }
 
 IssueIcon.propTypes = {

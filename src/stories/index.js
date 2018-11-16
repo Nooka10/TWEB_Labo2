@@ -14,8 +14,8 @@ storiesOf('IssueComments', module)
   .add('Issue with 10 comments', () => <IssueComments nbComments = "10" />);
 
 storiesOf('IssueIcon', module)
-  .add('Closed issue', () => <IssueIcon state = "closed" />)
-  .add('Open issue', () => <IssueIcon state = "open" />);
+  .add('Closed issue', () => <IssueIcon state = "CLOSED" />)
+  .add('Open issue', () => <IssueIcon state = "OPEN" />);
 
 const dateNow = new Date();
 
@@ -23,21 +23,21 @@ storiesOf('IssueTitle', module)
   .add('Issue Title opened on 31.10.2018',
     () => (
       <IssueTitle data = {{
-        issueNumber: '1234', title: 'Ya rien qui maaaarche!', state: 'open', user: 'Nooka10', issueTime: '20181031'
+        issueNumber: '1234', title: 'Ya rien qui maaaarche!', state: 'OPEN', user: 'Nooka10', issueTime: '20181031'
       }}
       />
     ))
   .add('Issue Title closed on 09.11.2018',
     () => (
       <IssueTitle data = {{
-        issueNumber: '1234', title: 'Ya rien qui maaaarche!', state: 'closed', user: 'Nooka10', issueTime: '20181109'
+        issueNumber: '1234', title: 'Ya rien qui maaaarche!', state: 'CLOSED', user: 'Nooka10', issueTime: '20181109'
       }}
       />
     ))
   .add('Issue Title opened just now',
     () => (
       <IssueTitle data = {{
-        issueNumber: '1234', title: 'Ya rien qui maaaarche!', state: 'open', user: 'Nooka10', issueTime: dateNow
+        issueNumber: '1234', title: 'Ya rien qui maaaarche!', state: 'OPEN', user: 'Nooka10', issueTime: dateNow
       }}
       />
     ));
@@ -48,7 +48,7 @@ storiesOf('Issue', module)
       <Issue data = {{
         issueNumber: '1234',
         title      : 'Ya rien qui maaaarche!',
-        state      : 'open',
+        state      : 'OPEN',
         comments   : '0',
         user       : 'Nooka10',
         issueTime  : '20181031'
@@ -59,7 +59,7 @@ storiesOf('Issue', module)
       <Issue data = {{
         issueNumber: '1234',
         title      : 'Ya rien qui maaaarche!',
-        state      : 'closed',
+        state      : 'CLOSED',
         comments   : '3',
         user       : 'Nooka10',
         issueTime  : '20181109'
@@ -70,7 +70,7 @@ storiesOf('Issue', module)
       <Issue data = {{
         issueNumber: '1234',
         title      : 'Ya rien qui maaaarche!',
-        state      : 'open',
+        state      : 'OPEN',
         comments   : '10',
         user       : 'Nooka10',
         issueTime  : dateNow

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import TabIssues from '../TabIssues/TabIssues';
+import Page from '../Page/Page';
 import './App.css';
 import IssueDetails from '../Issue/IssueDetails/IssueDetails';
 
@@ -9,8 +9,8 @@ function App() {
     <div className = "App">
       <Router>
         <div>
-          <Route exact path = "/" component = {TabIssues} />
-          <Route path = "/:issue" component = {IssueDetails} />
+          <Route exact path = "/" component = {Page} />
+          <Route path = "/:user/:repo/:numberIssue" component = {IssueDetails} />
         </div>
       </Router>
     </div>
