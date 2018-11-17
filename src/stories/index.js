@@ -1,12 +1,14 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { storiesOf } from '@storybook/react';
 import IssueIcon from '../components/Issue/IssueIcon/IssueIcon';
 import IssueComments from '../components/Issue/IssueComments/IssueComments';
 import IssueTitle from '../components/Issue/IssueTitle/IssueTitle';
 import Issue from '../components/Issue/Issue';
 import TabIssues from '../components/TabIssues/TabIssues';
+import Page from '../components/Page/Page';
+import IssueDetails from '../components/Issue/IssueDetails/IssueDetails';
 
 storiesOf('IssueComments', module)
   .add('Issue with 0 comments (n\'affiche rien)', () => <IssueComments nbComments = "0" />)
@@ -42,42 +44,64 @@ storiesOf('IssueTitle', module)
       />
     ));
 
+// FIXME: comment faire pour régler l'erreur de routage...?
 storiesOf('Issue', module)
   .add('Issue opened on 31.10.2018 without any comment',
     () => (
-      <Issue data = {{
-        issueNumber: '1234',
-        title      : 'Ya rien qui maaaarche!',
-        state      : 'OPEN',
-        comments   : '0',
-        user       : 'Nooka10',
-        issueTime  : '20181031'
-      }}
+      <Issue
+        data = {{
+          author   : { login: 'Nooka10' },
+          comments : { totalCount: '0' },
+          createdAt: '20181031',
+          number   : '1234',
+          state    : 'OPEN',
+          title    : 'Ya rien qui maaaarche!'
+        }}
+        repo = "Migueeeel"
+        repoOwner = "aideMoiiii"
       />
     )).add('Issue closed on 09.11.2018 with 3 comments',
     () => (
       <Issue data = {{
-        issueNumber: '1234',
-        title      : 'Ya rien qui maaaarche!',
-        state      : 'CLOSED',
-        comments   : '3',
-        user       : 'Nooka10',
-        issueTime  : '20181109'
+        author   : { login: 'Nooka10' },
+        comments : { totalCount: '3' },
+        createdAt: '20181109',
+        number   : '1235',
+        state    : 'CLOSED',
+        title    : 'Au secouuuuuuuuur!'
       }}
       />
-    )).add('Issue opened on 31.10.2018 with 10 comments',
+    )).add('Issue opened on 31.10.2018 with lots of comments',
     () => (
       <Issue data = {{
-        issueNumber: '1234',
-        title      : 'Ya rien qui maaaarche!',
-        state      : 'OPEN',
-        comments   : '10',
-        user       : 'Nooka10',
-        issueTime  : dateNow
+
+        author   : { login: 'Nooka10' },
+        comments : { totalCount: '25671' },
+        createdAt: dateNow,
+        number   : '1236',
+        state    : 'OPEN',
+        title    : 'Dis, j\'ai une petite question...'
       }}
       />
     ));
 
+// FIXME: comment résoudre le problème du client Apollo ?
 storiesOf('TabIssues', module).add('TabIssues', () => (
-  <TabIssues />
+  <TabIssues mainState = {{
+    username       : 'facebook',
+    repo           : 'create-react-app',
+    issuesState    : 'OPEN',
+    firstSearchDone: false
+  }}
+  />
+));
+
+// FIXME: comment on peut lui donner des paramètre d'url?
+storiesOf('IssueDetails', module).add('IssueDetails', () => (
+  <IssueDetails />
+));
+
+// FIXME: comment résoudre le problème du client Apollo ?
+storiesOf('Page', module).add('Should show the tab of issues and the search bar', () => (
+  <Page />
 ));

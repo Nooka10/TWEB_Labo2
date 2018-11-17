@@ -176,23 +176,23 @@ class TabIssues extends React.Component {
       >
         {({ loading, error, data }) => {
           if (loading) {
-            return <div >Loading...</div >;
+            return <div>Loading...</div>;
           }
           if (error) {
             return (
-              <Paper className = {classes.root} >
-                <div >
-                  <Table >
-                    <TableBody >
+              <Paper className = {classes.root}>
+                <div>
+                  <Table>
+                    <TableBody>
                       <TabHeader
                         order = {order}
                         valueOrderBy = {issueState}
                         issueState = {issueState}
                         onRequestSort = {this.handleRequestSort}
                       />
-                    </TableBody >
-                    <TableFooter >
-                      <TableRow >
+                    </TableBody>
+                    <TableFooter>
+                      <TableRow>
                         <TablePagination
                           count = {0}
                           rowsPerPage = {rowsPerPage}
@@ -201,11 +201,11 @@ class TabIssues extends React.Component {
                           onChangeRowsPerPage = {this.handleChangeRowsPerPage}
                           ActionsComponent = {TablePaginationWrapper}
                         />
-                      </TableRow >
-                    </TableFooter >
-                  </Table >
-                </div >
-              </Paper >
+                      </TableRow>
+                    </TableFooter>
+                  </Table>
+                </div>
+              </Paper>
             );
           }
 
@@ -214,10 +214,10 @@ class TabIssues extends React.Component {
           const emptyRows = rowsPerPage - Math.min(rowsPerPage, edges.length - page * rowsPerPage);
 
           return (
-            <Paper className = {classes.root} >
-              <div >
-                <Table >
-                  <TableBody >
+            <Paper className = {classes.root}>
+              <div>
+                <Table>
+                  <TableBody>
                     <TabHeader
                       order = {order}
                       valueOrderBy = {issueState}
@@ -227,20 +227,20 @@ class TabIssues extends React.Component {
                     {stableSort(edges, sortFunction(order, issueState, orderBy))
                       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                       .map(row => (
-                        <TableRow key = {row.node.number} >
-                          <TableCell colSpan = {2} >
+                        <TableRow key = {row.node.number}>
+                          <TableCell colSpan = {2}>
                             <Issues data = {row.node} repo = {repo} repoOwner = {username} />
-                          </TableCell >
-                        </TableRow >
+                          </TableCell>
+                        </TableRow>
                       ))}
                     {emptyRows > 0 && (
-                      <TableRow style = {{ height: 48 * emptyRows }} >
+                      <TableRow style = {{ height: 48 * emptyRows }}>
                         <TableCell colSpan = {2} />
-                      </TableRow >
+                      </TableRow>
                     )}
-                  </TableBody >
-                  <TableFooter >
-                    <TableRow >
+                  </TableBody>
+                  <TableFooter>
+                    <TableRow>
                       <TablePagination
                         count = {issues.totalCount}
                         rowsPerPage = {rowsPerPage}
@@ -249,14 +249,14 @@ class TabIssues extends React.Component {
                         onChangeRowsPerPage = {this.handleChangeRowsPerPage}
                         ActionsComponent = {TablePaginationWrapper}
                       />
-                    </TableRow >
-                  </TableFooter >
-                </Table >
-              </div >
-            </Paper >
+                    </TableRow>
+                  </TableFooter>
+                </Table>
+              </div>
+            </Paper>
           );
         }}
-      </Query >
+      </Query>
     );
   }
 }

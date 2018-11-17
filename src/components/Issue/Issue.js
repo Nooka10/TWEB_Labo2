@@ -43,14 +43,14 @@ function Issue(props) {
   };
   return (
     <Link to = {`/${repoOwner}/${repo}/${id}`} target = "_blank" className = {classes.link} style={{ textDecoration: 'none' }}>
-      <Card >
-        <CardActionArea className = {classes.cardActionArea} >
+      <Card>
+        <CardActionArea className = {classes.cardActionArea}>
           <IssueIcon state = {state} />
           <IssueTitle data = {titleData} />
           <IssueComments nbComments = {nbComments} />
-        </CardActionArea >
-      </Card >
-    </Link >
+        </CardActionArea>
+      </Card>
+    </Link>
   );
 }
 
