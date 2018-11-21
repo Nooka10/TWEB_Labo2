@@ -6,9 +6,6 @@ import IssueIcon from '../components/Issue/IssueIcon/IssueIcon';
 import IssueComments from '../components/Issue/IssueComments/IssueComments';
 import IssueTitle from '../components/Issue/IssueTitle/IssueTitle';
 import Issue from '../components/Issue/Issue';
-import TabIssues from '../components/TabIssues/TabIssues';
-import Page from '../components/Page/Page';
-import IssueDetails from '../components/Issue/IssueDetails/IssueDetails';
 
 storiesOf('IssueComments', module)
   .add('Issue with 0 comments (n\'affiche rien)', () => <IssueComments nbComments = "0" />)
@@ -84,24 +81,3 @@ storiesOf('Issue', module)
       }}
       />
     ));
-
-// FIXME: comment résoudre le problème du client Apollo ?
-storiesOf('TabIssues', module).add('TabIssues', () => (
-  <TabIssues mainState = {{
-    username       : 'facebook',
-    repo           : 'create-react-app',
-    issuesState    : 'OPEN',
-    firstSearchDone: false
-  }}
-  />
-));
-
-// FIXME: comment on peut lui donner des paramètre d'url?
-storiesOf('IssueDetails', module).add('IssueDetails', () => (
-  <IssueDetails />
-));
-
-// FIXME: comment résoudre le problème du client Apollo ?
-storiesOf('Page', module).add('Should show the tab of issues and the search bar', () => (
-  <Page />
-));
