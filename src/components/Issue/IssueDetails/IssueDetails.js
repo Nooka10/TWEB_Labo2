@@ -43,10 +43,10 @@ function IssueDetails(props) {
     >
       {({ loading, error, data }) => {
         if (loading) {
-          return <div >Loading...</div >;
+          return <div>Loading...</div>;
         }
         if (error) {
-          return <div >Sorry, an error occurs or this issue do not exist... :(</div >;
+          return <div>Sorry, an error occurs or this issue do not exist... :(</div>;
         }
         const {
           title, author: { login: userLogin }, createdAt: issueTime, state, body
@@ -60,18 +60,18 @@ function IssueDetails(props) {
         };
 
         return (
-          <Card className = {classes.card} >
+          <Card className = {classes.card}>
             <IssueTitle
               data = {titleData}
             />
             <Divider />
-            <CardContent >
+            <CardContent>
               {body === '' ? ('This issue doesn\'t have a description.') : <ReactMarkdown source = {body} />}
-            </CardContent >
-          </Card >
+            </CardContent>
+          </Card>
         );
       }}
-    </Query >
+    </Query>
   );
 }
 

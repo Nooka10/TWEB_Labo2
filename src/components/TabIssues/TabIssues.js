@@ -160,25 +160,23 @@ class TabIssues extends React.Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  setIssueStateState = (issueStateMain) => {
-    // FIXME: comment faire pour modifier le state sans avoir l'erreur :
-    // Cannot update during an existing state transition (such as within `render`). Render methods should be a pure function of props and state.
-    this.setState({ issueState: issueStateMain });
-  };
+  componentWillReceiveProps(nextProps) {
+    const { issueState } = this.state;
+    const { mainState: { issuesState } } = nextProps;
+    if (issuesState !== issueState) {
+      this.setState({ issueState: issuesState });
+    }
+  }
 
   render() {
-    const { classes, mainState: { username, repo, issuesState: issueStateMain } } = this.props;
+    const { classes, mainState: { username, repo } } = this.props;
     const {
       order, orderBy, rowsPerPage, issueState, page
     } = this.state;
 
-    if (issueStateMain !== undefined && issueState !== issueStateMain) {
-      this.setIssueStateState(issueStateMain);
-    }
-
-    // FIXME: comment reset une erreur graphQL? Là, si un répertoire n'existe pas, on ne peut plus en rechercher ensuite...
     return (
       <Query
+        fetchPolicy = "network-only"
         query = {GET_ISSUES}
         variables = {{
           owner: username, repo, state: issueState, nbIssues: rowsPerPage, order
@@ -186,23 +184,23 @@ class TabIssues extends React.Component {
       >
         {({ loading, error, data }) => {
           if (loading) {
-            return <div >Loading...</div >;
+            return <div>Loading...</div>;
           }
           if (error) {
             return (
-              <Paper className = {classes.root} >
-                <div >
-                  <Table >
-                    <TableBody >
+              <Paper className = {classes.root}>
+                <div>
+                  <Table>
+                    <TableBody>
                       <TabHeader
                         order = {order}
                         valueOrderBy = {issueState}
                         issueState = {issueState}
                         onRequestSort = {this.handleRequestSort}
                       />
-                    </TableBody >
-                    <TableFooter >
-                      <TableRow >
+                    </TableBody>
+                    <TableFooter>
+                      <TableRow>
                         <TablePagination
                           count = {0}
                           rowsPerPage = {rowsPerPage}
@@ -211,11 +209,11 @@ class TabIssues extends React.Component {
                           onChangeRowsPerPage = {this.handleChangeRowsPerPage}
                           ActionsComponent = {TablePaginationWrapper}
                         />
-                      </TableRow >
-                    </TableFooter >
-                  </Table >
-                </div >
-              </Paper >
+                      </TableRow>
+                    </TableFooter>
+                  </Table>
+                </div>
+              </Paper>
             );
           }
 
@@ -224,10 +222,10 @@ class TabIssues extends React.Component {
           const emptyRows = rowsPerPage - Math.min(rowsPerPage, edges.length - page * rowsPerPage);
 
           return (
-            <Paper className = {classes.root} >
-              <div >
-                <Table >
-                  <TableBody >
+            <Paper className = {classes.root}>
+              <div>
+                <Table>
+                  <TableBody>
                     <TabHeader
                       order = {order}
                       valueOrderBy = {issueState}
@@ -237,20 +235,20 @@ class TabIssues extends React.Component {
                     {stableSort(edges, sortFunction(order, issueState, orderBy))
                       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                       .map(row => (
-                        <TableRow key = {row.node.number} >
-                          <TableCell colSpan = {2} >
+                        <TableRow key = {row.node.number}>
+                          <TableCell colSpan = {2}>
                             <Issues data = {row.node} repo = {repo} repoOwner = {username} />
-                          </TableCell >
-                        </TableRow >
+                          </TableCell>
+                        </TableRow>
                       ))}
                     {emptyRows > 0 && (
-                      <TableRow style = {{ height: 48 * emptyRows }} >
+                      <TableRow style = {{ height: 48 * emptyRows }}>
                         <TableCell colSpan = {2} />
-                      </TableRow >
+                      </TableRow>
                     )}
-                  </TableBody >
-                  <TableFooter >
-                    <TableRow >
+                  </TableBody>
+                  <TableFooter>
+                    <TableRow>
                       <TablePagination
                         count = {issues.totalCount}
                         rowsPerPage = {rowsPerPage}
@@ -259,14 +257,14 @@ class TabIssues extends React.Component {
                         onChangeRowsPerPage = {this.handleChangeRowsPerPage}
                         ActionsComponent = {TablePaginationWrapper}
                       />
-                    </TableRow >
-                  </TableFooter >
-                </Table >
-              </div >
-            </Paper >
+                    </TableRow>
+                  </TableFooter>
+                </Table>
+              </div>
+            </Paper>
           );
         }}
-      </Query >
+      </Query>
     );
   }
 }
